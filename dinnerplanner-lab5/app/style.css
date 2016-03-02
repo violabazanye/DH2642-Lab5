@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+* {
+    @include box-sizing(border-box); 
+}
+
+.logo-text{
+	color:black;
+    font-size: 40px;
+}
+
+.top-banner{
+    margin: 30px;
+    font-weight: bold;
+}
+
+.navbar-inverse{
+    background-color: #E8E8E8;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.navbar{
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+.bgImg {
+  background: url(../images/index_background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
