@@ -3,3 +3,38 @@
 
 <!-- TODO in Lab 5: Display the dish information including image, Description, 
 Instructions, Ingredients and total cost. -->
+
+<div class="col-md-8" style="border-style: hidden hidden solid solid;">
+	<div class="row">
+      <div class="col-lg-6">
+      	{{status}}
+        <h4 style="width:50%">{{recipe.Title}}</h4>
+        <img style="display:block;width:300px;height:300px;" ng-src="{{recipe.ImageURL}}"/>
+        <br>
+        <p>{{recipe.Description}}</p>
+        <br>
+        <a ng-href="#/search" class="btn btn-primary" style="margin-bottom:10px;">back to Select Dish</a>
+      </div>
+      <div class="col-lg-6" style="background-color:#CC9966;">
+        <h5>Ingredients for <span>{{getNumberOfGuests()}}</span> people</h5>
+          <table class="table">
+            <tr>
+              <th>Quantity</th>
+              <th>Ingredient</th>
+              <th>Cost</th>
+            </tr>
+            <tr ng-repeat="item in recipe.Ingredients">
+            	<td>{{item.Quantity}}{{item.Unit}}</td>
+            	<td>{{item.Name}}</td>
+            	<td>{{getNumberOfGuests()}}</td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td><button id="confirmBtn" class="btn btn-primary" style="margin-bottom:15px;margin-top:15px;" ng-click="addDishToMenu()">Confirm Dish</button></td>
+              <td style="text-align:right;">SEK&nbsp;</td><td>{{dishCost(recipe.Ingredients.length)}}</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+</div>

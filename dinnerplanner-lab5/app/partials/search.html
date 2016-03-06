@@ -6,11 +6,17 @@ not support it in free version) and list all the dishes that match the search. -
 
 <div class="col-md-8" style="border-style: hidden hidden solid solid;background-color: #CC9966;">
 	<h4>Select dish</h4>
-    <hr>
+    <hr class="colored">
     <form>
         <table class="form-group">
-            <tr><th style="width:50%;"><input ng-model="query" placeholder="Enter key words" class="form-control"></th>
-            <th>&nbsp;<button type="button" class="btn btn-primary" ng-click="search(query)">Search</button></th></tr>
+            <tr><td style="width:50%;"><input ng-model="query" placeholder="Enter key words" class="form-control"></td>
+            	<td><select class="form-control" style="margin-left:10px;" ng-model="dishType" >
+                            <option>appetizers</option>
+                            <option>main dish</option>
+                            <option>desserts</option>
+                            <option>drinks</option>
+                        </select></td>
+            <td><button type="button" class="btn btn-primary" style="margin-left:15px;" ng-click="search(query, dishType)">Search</button></td></tr>
         </table>
     </form>
 </div>

@@ -3,7 +3,7 @@
 // dependency on any service you need. Angular will insure that the
 // service is created first time it is needed and then just reuse it
 // the next time.
-dinnerPlannerApp.factory('Dinner',function ($resource) {
+dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   
   var numberOfGuest = 2;
 
@@ -26,8 +26,26 @@ dinnerPlannerApp.factory('Dinner',function ($resource) {
   
   this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'18f3cT02U9f6yRl3OKDpP8NA537kxYKu'}); 
 
+  var menu = [];
 
+  this.getFullMenu = function(){
+    return menu;
+  }
 
+  this.removeDishFromMenu = function(pos){
+    menu.splice(pos, 1);
+  }
+
+  var totalCost = 0;
+  this.getTotalMenuPrice = function(){
+    // use querySelector to find all second table cells
+    var cells = document.querySelectorAll("td + td");
+
+    for (var i = 0; i < cells.length; i++){
+      totalCost+=parseFloat(cells[i].firstChild.data);
+    }
+    return totalCost;
+  }
 
   // Angular service needs to return an object that has all the
   // methods created in it. You can consider that this is instead
