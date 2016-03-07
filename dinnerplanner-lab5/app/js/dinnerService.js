@@ -37,13 +37,20 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   }
 
   var totalCost = 0;
-  this.getTotalMenuPrice = function(){
+  this.getTotalMenuPrice = function(cost){
     // use querySelector to find all second table cells
-    var cells = document.querySelectorAll("td + td");
+    var cells = document.querySelectorAll(".itemCost");
+    //console.log(cells.length);
 
     for (var i = 0; i < cells.length; i++){
-      totalCost+=parseFloat(cells[i].firstChild.data);
+      if(isNaN(cells[i].innerHTML) == true){
+        cells[i].innerHTML = 0;
+
+      }
+
+      totalCost+=parseFloat(cells[i].innerHTML);
     }
+    console.log(totalCost);
     return totalCost;
   }
 

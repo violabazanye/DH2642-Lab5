@@ -1,0 +1,20 @@
+<div class="row row-centered">
+  <div class="col-xs-9" style="border-style: hidden hidden solid solid;background-color: #CC9966;"><h4>My Dinner: <span>{{getNumberOfGuests()}}</span> people <a href="#/search" class="btn btn-primary">Go back and edit dinner</a></h4>
+  </div>
+
+  <div class="col-xs-6 col-centered">
+  	<ul class="imgGrid columns-4">
+ 		<li ng-repeat="dish in finalDishes track by $index">
+ 		<img ng-src="{{dish.ImageURL}}"/>
+ 			<strong>{{dish.Title}}</strong>
+ 		<a ng-href="#/dish/{{dish.RecipeID}}">View more</a>
+ 			{{dish.Category}} {{dish.Subcategory}}
+ 		</li>
+	</ul>
+  </div>
+  <div class="col-xs-4 col-centered" style="vertical-align: bottom;"><strong>Total: SEK {{}}</strong></div>
+</div>
+<hr>
+<div class="row row-centered">
+  <div class="col-md-6 col-md-offset-3 col-centered"><a href="#/preparation" class="btn btn-primary">Print full recipe</a></div>
+</div>

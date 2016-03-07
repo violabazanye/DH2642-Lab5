@@ -140,3 +140,21 @@ th {
   text-align: center;
   border: 1px solid black;
 }
+
+.col-xs-9 {
+    width: 99%;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+

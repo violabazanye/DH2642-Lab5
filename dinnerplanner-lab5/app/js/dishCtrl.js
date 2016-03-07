@@ -26,6 +26,7 @@ dinnerPlannerApp.controller('DishCtrl', function ($scope,$routeParams,Dinner) {
 
   $scope.addDishToMenu = function(){
   	$scope.menu.push(this.recipe);
+  	Dinner.getTotalMenuPrice();
   }
   
 });

@@ -1,0 +1,14 @@
+<div class="row row-centered">
+  <div class="col-xs-9" style="border-style: hidden hidden solid solid;background-color: #CC9966;"><h4>My Dinner: <span>{{getNumberOfGuests()}}</span> people <a href="#/search" class="btn btn-primary">Go back and edit dinner</a></h4>
+  </div>
+
+  <div class="col-xs-9">
+  		<table class="table">
+  			<tr ng-repeat="dish in finalDishes track by $index">
+  				<td><img style="width:150px;height:150px;" ng-src="{{dish.ImageURL}}"/></td>
+  				<td>{{dish.Title}}</td>
+  				<td>{{dish.Instructions}}</td>
+  			</tr>
+		</table>
+  </div>
+</div>
