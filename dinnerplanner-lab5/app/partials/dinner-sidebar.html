@@ -15,11 +15,11 @@ this with Total price of the menu -->
     		<!-- {{status}} -->
     	<tr ng-repeat="dish in menuDishes track by $index">
     		<td>{{dish.Title}}</td>
-    		<td><p class="itemCost" style="display:inline;">{{dishCost(dish.Ingredients.length)}}</p>:- <button ng-click="remove(menuDishes.indexOf(dish))" class="btn btn-danger btn-xs">Remove</button></td>
+    		<td><p style="display:inline;">{{dishCost(dish.Ingredients.length)}}</p>:- <button ng-click="remove(menuDishes.indexOf(dish))" class="btn btn-danger btn-xs">Remove</button></td>
 
     	</tr>
 	</table>
 	<br>
-	<p><strong>Total: SEK {{menuCost}}</strong></p>
+	<p><strong>Total: SEK {{getTotalMenuPrice()}}</strong></p>
 	<a href="#/overview" class="btn btn-primary">Confirm dinner</a>
 </div>

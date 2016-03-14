@@ -5,7 +5,7 @@
 // the next time.
 dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   
-  var numberOfGuest = 2;
+  var numberOfGuest = 1;
 
 
   this.setNumberOfGuests = function(num) {
@@ -16,15 +16,21 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
     return numberOfGuest;
   }
 
+  this.writeCookie = function(num){
+    $cookieStore.put("numOfGuests", num);
+  }
+
 
   // TODO in Lab 5: Add your model code from previous labs
   // feel free to remove above example code
   // you will need to modify the model (getDish and getAllDishes) 
   // a bit to take the advantage of Angular resource service
   // check lab 5 instructions for details
-  this.DishSearch = $resource('http://api.bigoven.com/recipes',{pg:1,rpp:25,api_key:'18f3cT02U9f6yRl3OKDpP8NA537kxYKu'});
+  this.DishSearch = $resource('http://api.bigoven.com/recipes',{pg:1,rpp:25,api_key:'0OV23011kU7B3VVVgxTTTIfdNXeTI3us'});
   
-  this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'18f3cT02U9f6yRl3OKDpP8NA537kxYKu'}); 
+  this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'0OV23011kU7B3VVVgxTTTIfdNXeTI3us'}); 
+
+  var totalCost = 0;
 
   var menu = [];
 
@@ -32,26 +38,24 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
     return menu;
   }
 
-  this.removeDishFromMenu = function(pos){
-    menu.splice(pos, 1);
+  this.writeMenuCookie = function(ID){
+    $cookieStore.put("dishID", ID);
   }
 
-  var totalCost = 0;
-  this.getTotalMenuPrice = function(cost){
-    // use querySelector to find all second table cells
-    var cells = document.querySelectorAll(".itemCost");
-    //console.log(cells.length);
+  this.addDishToMenu = function(obj, cost){
+    totalCost += cost;
+    menu.push(obj);
+  }
 
-    for (var i = 0; i < cells.length; i++){
-      if(isNaN(cells[i].innerHTML) == true){
-        cells[i].innerHTML = 0;
-
-      }
-
-      totalCost+=parseFloat(cells[i].innerHTML);
+  this.removeDishFromMenu = function(pos, cost){   
+    if(menu != undefined){
+      totalCost -= cost;
+      menu.splice(pos, 1);
     }
-    console.log(totalCost);
-    return totalCost;
+  }
+
+  this.getTotalMenuPrice = function(guests){
+    return totalCost*guests;
   }
 
   // Angular service needs to return an object that has all the

@@ -22,11 +22,9 @@ dinnerPlannerApp.controller('DishCtrl', function ($scope,$routeParams,Dinner) {
   	return items * Dinner.getNumberOfGuests();
   }
 
-  $scope.menu = Dinner.getFullMenu();
-
-  $scope.addDishToMenu = function(){
-  	$scope.menu.push(this.recipe);
-  	Dinner.getTotalMenuPrice();
+  $scope.addDish = function(){
+    Dinner.addDishToMenu(this.recipe, this.recipe.Ingredients.length);
+    Dinner.writeMenuCookie(this.recipe.RecipeID);
   }
   
 });
