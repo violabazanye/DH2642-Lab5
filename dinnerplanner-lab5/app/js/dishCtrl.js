@@ -24,7 +24,6 @@ dinnerPlannerApp.controller('DishCtrl', function ($scope,$routeParams,Dinner) {
 
   $scope.addDish = function(){
     Dinner.addDishToMenu(this.recipe, this.recipe.Ingredients.length);
-    Dinner.writeMenuCookie(this.recipe.RecipeID);
   }
   
 });

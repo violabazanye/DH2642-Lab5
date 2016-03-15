@@ -12,8 +12,6 @@ dinnerPlannerApp.controller('SearchCtrl', function ($scope,Dinner,$cookieStore) 
     },function(data){
       $scope.status = "There was an error. Try again.";
     });
-    console.log($cookieStore.get('numOfGuests'));
-    console.log($cookieStore.get('dishID'));
   });
 
   $scope.search = function(query, dishType) {

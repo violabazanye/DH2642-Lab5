@@ -7,17 +7,26 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   
   var numberOfGuest = 1;
 
+  this.checkConfirmButton = function(){
+    var confirmSwitch=true;
+    if(menu.length>0){
+      confirmSwitch=false;
+    }
+
+    return confirmSwitch;
+   }
+
 
   this.setNumberOfGuests = function(num) {
     numberOfGuest = num;
+    $cookieStore.put("numberOfGuest",num);
   }
 
   this.getNumberOfGuests = function() {
+    if($cookieStore.get("numberOfGuest")!=undefined){
+      numberOfGuest=$cookieStore.get("numberOfGuest");
+    }
     return numberOfGuest;
-  }
-
-  this.writeCookie = function(num){
-    $cookieStore.put("numOfGuests", num);
   }
 
 
@@ -26,25 +35,29 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   // you will need to modify the model (getDish and getAllDishes) 
   // a bit to take the advantage of Angular resource service
   // check lab 5 instructions for details
-  this.DishSearch = $resource('http://api.bigoven.com/recipes',{pg:1,rpp:25,api_key:'0OV23011kU7B3VVVgxTTTIfdNXeTI3us'});
+  this.DishSearch = $resource('http://api.bigoven.com/recipes',{pg:1,rpp:25,api_key:'66J8l00npnHHZcCNLRhxkfW1OHxbojy4'});
   
-  this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'0OV23011kU7B3VVVgxTTTIfdNXeTI3us'}); 
+  this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'66J8l00npnHHZcCNLRhxkfW1OHxbojy4'}); 
 
   var totalCost = 0;
 
   var menu = [];
+  var menuInCookies=[];
+
 
   this.getFullMenu = function(){
     return menu;
   }
 
-  this.writeMenuCookie = function(ID){
-    $cookieStore.put("dishID", ID);
-  }
-
   this.addDishToMenu = function(obj, cost){
     totalCost += cost;
     menu.push(obj);
+    menuInCookies.push(obj.RecipeID);
+    $cookieStore.put("menuInCookies", menuInCookies);
+  }
+
+  this.getMenuInCookies = function(){
+    return menuInCookies;
   }
 
   this.removeDishFromMenu = function(pos, cost){   
@@ -56,6 +69,26 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
 
   this.getTotalMenuPrice = function(guests){
     return totalCost*guests;
+  }
+
+  var menuCookie = $cookieStore.get('menuInCookies');
+
+  if(menuCookie){
+    var oldMenuCookie = menuCookie;
+    menuCookie = [];
+
+    for(key in oldMenuCookie){
+      var dishID = oldMenuCookie[key];
+
+      var self = this;
+      this.Dish.get( {id:dishID} ,function(data){
+        self.addDishToMenu(data, data.Ingredients.length);
+      },function(data){
+        // do nothing if error
+      });
+    }
+  }else{
+    menuCookie = [];
   }
 
   // Angular service needs to return an object that has all the

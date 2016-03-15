@@ -6,7 +6,6 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope,Dinner,$cookieStore) 
 
   $scope.setNumberOfGuest = function(number){
     Dinner.setNumberOfGuests(number);
-    Dinner.writeCookie(number);
   }
 
   $scope.getNumberOfGuests = function() {
@@ -16,7 +15,7 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope,Dinner,$cookieStore) 
   // TODO in Lab 5: Implement the methods to get the dinner menu
   // add dish to menu and get total menu price
 
-  $scope.menuDishes = Dinner.getFullMenu();
+  $scope.menuDishes = Dinner.getFullMenu();  
 
   $scope.dishCost = function(items){
   	return items * Dinner.getNumberOfGuests();
