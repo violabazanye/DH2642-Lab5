@@ -64,8 +64,11 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
     if(menu != undefined){
       totalCost -= cost;
       menu.splice(pos, 1);
+      menuInCookies.splice(pos, 1);
     }
+    $cookieStore.put('menuInCookies', menuInCookies);
   }
+
 
   this.getTotalMenuPrice = function(guests){
     return totalCost*guests;
